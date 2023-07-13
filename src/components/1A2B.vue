@@ -4,18 +4,18 @@
     <h1 class="header">1 A 2 B</h1>
     <p class="color">Enter four different numbers:</p>
     <div class="formDiv">
-      <form>
-        <input
-          type="text"
-          id="guess"
-          name="guess"
-          maxlength="4"
-          placeholder="Ex:1234"
-        />
-        <button type="reset" id="confirm" @click="guessButton">Enter</button>
-        <button type="reset" @click="resetButton">Restart</button>
-        <!-- <button type="reset" @click="answerButton">Answer</button> -->
-      </form>
+      <input
+        type="text"
+        id="guess"
+        name="guess"
+        maxlength="4"
+        placeholder="Ex:1234"
+        @keyup.enter="guessButton"
+        v-model="inputValue"
+      />
+      <button id="confirm" @click="guessButton">Enter</button>
+      <button @click="resetButton">Restart</button>
+      <button @click="answerButton">Answer</button>
     </div>
 
     <div id="main" class="color"></div>
@@ -32,9 +32,14 @@ for (let i = 0; i < 4; i++) {
 }
 let times = 0;
 export default {
+  data() {
+    return {
+      inputValue: "",
+    };
+  },
   methods: {
     guessButton() {
-      const guessNumber = document.getElementById("guess").value;
+      let guessNumber = document.getElementById("guess").value;
       const distinct = new Set(Array.from(guessNumber));
       const distinctToArray = [...distinct];
 
@@ -69,6 +74,8 @@ export default {
         let main = document.getElementById("main");
         main.innerHTML += `${guessNumber}  ${a}A${b}B<br>`;
       }
+      // document.getElementById("guess").value = "";
+      this.inputValue = "";
       times++;
     },
     answerButton() {

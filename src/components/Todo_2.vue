@@ -7,6 +7,7 @@
         v-model="newTodo"
         type="text"
         placeholder="Add ToDo List"
+        @keyup.enter="addFunction"
       />
       <button type="reset" id="add" @click="addFunction">Add</button>
       <button type="reset" id="done" @click="done" style="display: none">
